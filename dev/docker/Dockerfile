@@ -6,7 +6,7 @@ LABEL maintainer="Petar Obradović <petar.obradovic@trikoder.net>"
 ARG COMPOSER_VERSION=1.9.1
 ARG FLEX_VERSION=1.4.8
 ARG TIMECOP_VERSION=1.2.10
-ARG XDEBUG_VERSION=2.8.0
+ARG XDEBUG_VERSION=2.8.1
 
 # This is where we're going to store all of our non-project specific binaries
 RUN mkdir -p /app/bin
