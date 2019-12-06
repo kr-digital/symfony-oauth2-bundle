@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Trikoder\Bundle\OAuth2Bundle\Tests\Acceptance;
 
-use DateTime;
+use DateTimeImmutable;
 use Trikoder\Bundle\OAuth2Bundle\Manager\Doctrine\AccessTokenManager as DoctrineAccessTokenManager;
 use Trikoder\Bundle\OAuth2Bundle\Model\AccessToken;
 use Trikoder\Bundle\OAuth2Bundle\Model\Client;
@@ -26,7 +26,7 @@ final class DoctrineAccessTokenManagerTest extends AbstractAcceptanceTest
         $em->persist($client);
         $em->flush();
 
-        timecop_freeze(new DateTime());
+        timecop_freeze(new DateTimeImmutable());
 
         try {
             $testData = $this->buildClearExpiredTestData($client);
@@ -72,7 +72,7 @@ final class DoctrineAccessTokenManagerTest extends AbstractAcceptanceTest
     {
         return new AccessToken(
             $identifier,
-            (new DateTime())->modify($modify),
+            new DateTimeImmutable($modify),
             $client,
             null,
             []
@@ -89,7 +89,7 @@ final class DoctrineAccessTokenManagerTest extends AbstractAcceptanceTest
         $em->persist($client);
         $em->flush();
 
-        timecop_freeze(new DateTime());
+        timecop_freeze(new DateTimeImmutable());
 
         try {
             $testData = $this->buildClearExpiredTestDataWithRefreshToken($client);
@@ -138,10 +138,10 @@ final class DoctrineAccessTokenManagerTest extends AbstractAcceptanceTest
     {
         return new RefreshToken(
             $identifier,
-            (new DateTime('+1 day')),
+            new DateTimeImmutable('+1 day'),
             new AccessToken(
                 $identifier,
-                (new DateTime())->modify($modify),
+                new DateTimeImmutable($modify),
                 $client,
                 null,
                 []
